@@ -1,5 +1,5 @@
-// const { sequelize, User, Chordlist, Playlist } = require("./models");
-
+// const { User } = require("./src/models");
+// const { sequelize } = require("./src/models");
 // sequelize
 //   .sync({ force: true })
 //   .then(() => {
