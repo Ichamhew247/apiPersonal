@@ -2,8 +2,8 @@ module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define(
     "Product",
     {
-      productName: {
-        type: DataTypes.STRING,
+      priceProduct: {
+        type: DataTypes.FLOAT,
         unique: true,
         allowNull: false,
         validate: {
@@ -14,18 +14,36 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      photoProduct: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       underscored: true,
     }
   );
-  // Product.belongsToMany(models.Order, {
-  //   foreignkey: {
-  //     name: "customerId",
-  //     allowNull: false,
-  //   },
-  //   onDelete: "RESTRICT",
-  //   onUpdate: "RESTRICT",
-  // });
+  Product.associate = (models) => {
+    Product.hasMany(models.OrderProduct, {
+      foreignkey: {
+        name: "productId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+      onUpdate: "RESTRICT",
+    });
+    Product.belongsTo(models.Category, {
+      foreignkey: {
+        name: "categoryId",
+        allowNull: false,
+      },
+      onDelete: "RESTRICT",
+      onUpdate: "RESTRICT",
+    });
+  };
   return Product;
 };

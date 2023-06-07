@@ -1,24 +1,24 @@
 module.exports = (Sequelize, DataTypes) => {
-  const Order = Sequelize.define(
-    "Order",
+  const OrderProduct = Sequelize.define(
+    "OrderProduct",
     {
-      date: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
-      },
-      saleNumber: {
+      priceOrder: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      term: {
+      quantity: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      dueDate: {
+      discount: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      vat: {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
-      poNumber: {
+      netTotal: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -27,16 +27,8 @@ module.exports = (Sequelize, DataTypes) => {
       underscored: true,
     }
   );
-  Order.associate = (models) => {
-    Order.belongsTo(models.Customer, {
-      foreignkey: {
-        name: "customerId",
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
-    Order.hasMany(models.Delivery, {
+  OrderProduct.associate = (models) => {
+    OrderProduct.belongsTo(models.Order, {
       foreignkey: {
         name: "orderId",
         allowNull: false,
@@ -44,14 +36,14 @@ module.exports = (Sequelize, DataTypes) => {
       onDelete: "RESTRICT",
       onUpdate: "RESTRICT",
     });
-    Order.hasMany(models.OrderProduct, {
+    OrderProduct.belongsTo(models.Product, {
       foreignkey: {
-        name: "orderId",
+        name: "productId",
         allowNull: false,
       },
       onDelete: "RESTRICT",
       onUpdate: "RESTRICT",
     });
   };
-  return Order;
+  return OrderProduct;
 };

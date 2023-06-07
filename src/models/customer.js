@@ -2,12 +2,12 @@ module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define(
     "Customer",
     {
-      customerId: {
+      customerName: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
       },
-      firstName: {
+      customerAddress: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
@@ -15,15 +15,8 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      address: {
+      customerTaxNumber: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
-      },
-      taxNumber: {
-        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notEmpty: true,
@@ -36,15 +29,6 @@ module.exports = (sequelize, DataTypes) => {
   );
   Customer.associate = (models) => {
     Customer.hasMany(models.Order, {
-      foreignkey: {
-        name: "customerId",
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
-
-    Customer.hasMany(models.Shipment, {
       foreignkey: {
         name: "customerId",
         allowNull: false,

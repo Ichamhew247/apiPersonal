@@ -33,7 +33,6 @@
 //   })
 //   .then(() => {
 //     return Chordlist.bulkCreate([
-
 //       {
 //         id: 1,
 //         playlistId: 1,
@@ -41,7 +40,7 @@
 //         chord: "A",
 //       },
 //       {
-//        id: 2,
+//         id: 2,
 //         playlistId: 1,
 //         time: "6",
 //         chord: "F Sharp minor",
@@ -59,7 +58,6 @@
 //         chord: "E",
 //       },
 //     ]);
-
 //   })
 
 //   .then(() => process.exit(0))
