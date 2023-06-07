@@ -2,14 +2,14 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const userRoute = require("./routes/user-route");
-const { sequelize } = require("./models");
+// const { sequelize } = require("./models");
 // const morgan = require("morgan");
 // const helmet = require("helmet");
 // const rateLimit = require("express-rate-limit");
 // const notFoundMiddleware = require("./middleware/not-found");
 // const errorMiddleware = require("./middleware/error");
 
-sequelize.sync({ force: true });
+// sequelize.sync({ force: true });
 const app = express();
 
 app.use(cors());

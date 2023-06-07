@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "db:sync": "node src/initiallize/database.js"
+    "sync": "node db.sync.js"
   },
   "keywords": [],
   "author": "",
