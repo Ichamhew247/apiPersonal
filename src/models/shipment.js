@@ -1,41 +1,51 @@
 module.exports = (sequelize, DataTypes) => {
-  const Customer = sequelize.define(
-    "Customer",
+  const Shipment = sequelize.define(
+    "Shipment",
     {
+      productId: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
       customerId: {
         type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-      },
-      firstName: {
-        type: DataTypes.STRING,
-        unique: true,
         allowNull: false,
         validate: {
           notEmpty: true,
         },
       },
-      address: {
+      price: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: true,
         },
       },
-      taxNumber: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      quantity: {
+        type: DataTypes.STRING,
+        unique: true,
         validate: {
-          notEmpty: true,
+          isEmail: true,
         },
+      },
+      discount: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      netTotal: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
       underscored: true,
     }
   );
-  Customer.associate = (models) => {
-    Customer.hasMany(models.Order, {
+  Shipment.associate = (models) => {
+    Shipment.belongsTo(models.Customer, {
       foreignkey: {
         name: "customerId",
         allowNull: false,
@@ -44,15 +54,14 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "RESTRICT",
     });
 
-    Customer.hasMany(models.Shipment, {
+    Shipment.belongsTo(models.Product, {
       foreignkey: {
-        name: "customerId",
+        name: "productName",
         allowNull: false,
       },
       onDelete: "RESTRICT",
       onUpdate: "RESTRICT",
     });
   };
-
-  return Customer;
+  return Shipment;
 };
