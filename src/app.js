@@ -1,22 +1,25 @@
 require("dotenv").config();
 const express = require("express");
+const app = express();
 const cors = require("cors");
-const userRoute = require("./routes/user-route");
-// const { sequelize } = require("./models");
-// const morgan = require("morgan");
+const morgan = require("morgan");
+
+const userRoute = require("./routes/userRoute");
+// const todoRoute = require("./routes/todoRoute");
+const notFoundMiddleware = require("./middleware/notFound");
+const errorMiddleware = require("./middleware/error");
+app.use(cors());
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+app.use(express.json());
+
+app.use("/users", userRoute);
+// app.use("/todo", todoRoute);
 // const helmet = require("helmet");
 // const rateLimit = require("express-rate-limit");
-// const notFoundMiddleware = require("./middleware/not-found");
-// const errorMiddleware = require("./middleware/error");
 
-// sequelize.sync({ force: true });
-const app = express();
-
-app.use(cors());
-
-// if (process.env.NODE_ENV === "development") {
-//   app.use(morgan("dev"));
-// }
+//MIDDLEWARE
 
 // app.use(
 //   rateLimit({
@@ -27,10 +30,10 @@ app.use(cors());
 // );
 
 // app.use(helmet());
-app.use(express.json());
 
-// app.use(notFoundMiddleware);
-// app.use(errorMiddleware);
-app.use("/user", userRoute);
 const port = process.env.PORT || 8000;
+
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
+
 app.listen(port, () => console.log("server running on port " + port));
