@@ -23,6 +23,25 @@ exports.getProduct = (req, res, next) => {
     })
     .catch(next);
 };
+exports.getProductById = (req, res, next) => {
+  const { id } = req.params;
+  Product.findOne({
+    attributes: ["name", "priceProduct", "description"],
+    where: { id: id },
+  })
+    .then((rs) => {
+      res.json(rs);
+    })
+    .catch(next);
+};
+
+exports.updateProduct = (req, res, next) => {
+  const { id } = req.params;
+  Product.update({ ...req.body }, { where: { id: id } });
+  then((rs) => {
+    res.json(rs);
+  }).catch(next);
+};
 // exports.updateProduct = async (req, res, next) => {
 //   try {
 //     const { oldpriceProduct, newpriceProduct, confirmpriceProduct } = req.body;
@@ -72,7 +91,7 @@ exports.getProduct = (req, res, next) => {
 //       name: name,
 //       photoProduct: photoProduct,
 //     });
-//     res.status(201).json({ message: "อัพโหลดสินค้าสำเร็จ", result });
+//     res.status(201).json({ message: "ลบสินค้าสำเร็จ", result });
 //   } catch (error) {
 //     next(error);
 //   }
