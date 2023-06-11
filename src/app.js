@@ -5,7 +5,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 const userRoute = require("./routes/userRoute");
-// const todoRoute = require("./routes/todoRoute");
+const productRoute = require("./routes/productRoute");
+
 const notFoundMiddleware = require("./middleware/notFound");
 const errorMiddleware = require("./middleware/error");
 app.use(cors());
@@ -15,7 +16,8 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.json());
 
 app.use("/users", userRoute);
-// app.use("/todo", todoRoute);
+app.use("/products", productRoute);
+
 // const helmet = require("helmet");
 // const rateLimit = require("express-rate-limit");
 
