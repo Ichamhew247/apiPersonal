@@ -1,19 +1,3 @@
-// exports.login = async (req, res, next) => {
-//   try {
-//     console.log("Test Login");
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-// exports.register = async (req, res, next) => {
-//   try {
-//     console.log("Test register");
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// const createError = require("../utils/createError");
 const createError = require("../utils/createError");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -76,10 +60,10 @@ exports.login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
     if (!username) {
-      createError("username is required", 400);
+      createError("username is required 1", 400);
     }
     if (!password) {
-      createError("password is required", 400);
+      createError("password is required 2", 400);
     }
 
     // 2 FIND USER
