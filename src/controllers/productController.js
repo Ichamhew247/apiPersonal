@@ -1,4 +1,5 @@
 const { Product } = require("../models");
+const { Op } = require("sequelize");
 
 exports.getProduct = (req, res, next) => {
   Product.findAll()
@@ -7,6 +8,7 @@ exports.getProduct = (req, res, next) => {
     })
     .catch(next);
 };
+
 exports.getProductById = (req, res, next) => {
   const { id } = req.params;
   Product.findOne({
@@ -58,6 +60,21 @@ exports.deleteProduct = (req, res, next) => {
   Product.destroy({
     attributes: ["name", "priceProduct", "description"],
     where: { id: id },
+  })
+    .then((rs) => {
+      res.json(rs);
+    })
+    .catch(next);
+};
+
+exports.searchProduct = (req, res, next) => {
+  const { search } = req.body;
+  Product.findAll({
+    where: {
+      name: {
+        [Op.like]: `%${search}%`,
+      },
+    },
   })
     .then((rs) => {
       res.json(rs);
