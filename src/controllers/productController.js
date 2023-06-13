@@ -28,31 +28,30 @@ exports.updateProduct = (req, res, next) => {
     .catch(next);
 };
 
-// exports.createProduct = async (req, res, next) => {
-//   try {
-//     const { priceProduct, description, name } = req.body;
+exports.createProduct = async (req, res, next) => {
+  try {
+    const { priceProduct, description, name } = req.body;
 
-//     const result = await Product.create({
-//       priceProduct: priceProduct,
-//       description: description,
-//       name: name,
-//       // photoProduct: photoProduct,
-//     });
-//     res.status(201).json({ message: "อัพโหลดสินค้าสำเร็จ", result });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-exports.createProduct = (req, res, next) => {
-  const { priceProduct, description, name } = req.body;
-  Product.create({
-    attributes: ["priceProduct", "description", "name"],
-  })
-    .then((rs) => {
-      res.json(rs);
-    })
-    .catch(next);
+    const result = await Product.create({
+      priceProduct: priceProduct,
+      description: description,
+      name: name,
+      // photoProduct: photoProduct,
+    });
+    res.status(201).json({ message: "อัพโหลดสินค้าสำเร็จ", result });
+  } catch (error) {
+    next(error);
+  }
 };
+// exports.createProduct = (req, res, next) => {
+//   Product.create({
+//     attributes: ["priceProduct", "description", "name"],
+//   })
+//     .then((rs) => {
+//       res.json(rs);
+//     })
+//     .catch(next);
+// };
 
 exports.deleteProduct = (req, res, next) => {
   const { id } = req.params;
