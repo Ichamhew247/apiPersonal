@@ -67,17 +67,46 @@ exports.deleteProduct = (req, res, next) => {
     .catch(next);
 };
 
+// exports.searchProduct = (req, res, next) => {
+//   const { search } = req.body;
+//   Product.findAll({
+//     where: {
+//       name: {
+//         [Op.like]: `%${search}%`,
+//       },
+//     },
+//   })
+//     .then((rs) => {
+//       res.json(rs);
+//     })
+//     .catch(next);
+// };
+
 exports.searchProduct = (req, res, next) => {
   const { search } = req.body;
   Product.findAll({
     where: {
-      name: {
-        [Op.like]: `%${search}%`,
-      },
+      [Op.or]: [
+        {
+          name: {
+            [Op.like]: `%${search}%`,
+          },
+        },
+        {
+          priceProduct: {
+            [Op.like]: `%${search}%`,
+          },
+        },
+        {
+          description: {
+            [Op.like]: `%${search}%`,
+          },
+        },
+      ],
     },
   })
-    .then((rs) => {
-      res.json(rs);
+    .then((results) => {
+      res.json(results);
     })
     .catch(next);
 };
