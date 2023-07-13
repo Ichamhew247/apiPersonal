@@ -1,12 +1,3 @@
-// const express = require("express");
-// const router = express.Router();
-
-// router.post("/register", authController.register);
-// router.patch("/update");
-// router.get("/login", authController.login);
-
-// module.exports = router;
-
 const express = require("express");
 const { getUserByToken } = require("../middleware/userAuthorize");
 const userController = require("../controllers/userController");

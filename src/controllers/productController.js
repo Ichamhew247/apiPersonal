@@ -30,6 +30,18 @@ exports.updateProduct = (req, res, next) => {
     .catch(next);
 };
 
+exports.deleteProduct = (req, res, next) => {
+  const { id } = req.params;
+  Product.destroy({
+    attributes: ["name", "priceProduct", "description"],
+    where: { id: id },
+  })
+    .then((rs) => {
+      res.json(rs);
+    })
+    .catch(next);
+};
+
 exports.createProduct = async (req, res, next) => {
   try {
     const { priceProduct, description, name } = req.body;
@@ -54,18 +66,6 @@ exports.createProduct = async (req, res, next) => {
 //     })
 //     .catch(next);
 // };
-
-exports.deleteProduct = (req, res, next) => {
-  const { id } = req.params;
-  Product.destroy({
-    attributes: ["name", "priceProduct", "description"],
-    where: { id: id },
-  })
-    .then((rs) => {
-      res.json(rs);
-    })
-    .catch(next);
-};
 
 // exports.searchProduct = (req, res, next) => {
 //   const { search } = req.body;

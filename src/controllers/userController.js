@@ -91,7 +91,6 @@ exports.login = async (req, res, next) => {
   }
 };
 
-//ท่าพี่เจียง
 exports.getMe = async (req, res, next) => {
   const { id, username } = req.user;
 
